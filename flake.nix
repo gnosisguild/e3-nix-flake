@@ -83,6 +83,15 @@
         '';
       in
         with pkgs; {
+          packages = {
+            bb = noir-bb;
+          };
+
+          templates.default = {
+            path = ./template;
+            description = "New project using e3 tools";
+          };
+
           devShells.default = mkShell {
             buildInputs = [
               pkg-config
