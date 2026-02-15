@@ -1,21 +1,25 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = {
     self,
     nixpkgs,
+    unstable,
     flake-utils,
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
-          config = {
-            allowUnfree = true;
-          };
+          inherit system;
+          config = {allowUnfree = true;};
         };
-        upkgs = unstable;
+        upkgs = import unstable {
+          inherit system;
+          config = {allowUnfree = true;};
+        };
         platform =
           if pkgs.stdenv.isLinux
           then
@@ -28,40 +32,6 @@
             then "aarch64-apple-darwin"
             else "x86_64-apple-darwin"
           else throw "Unsupported platform";
-
-        nargo = pkgs.stdenv.mkDerivation rec {
-          pname = "nargo";
-          version = "1.0.0-beta.15";
-
-          src = pkgs.fetchurl {
-            url =
-              if version == "latest"
-              then "https://github.com/noir-lang/noir/releases/latest/download/noir-${platform}.tar.gz"
-              else "https://github.com/noir-lang/noir/releases/download/v${version}/noir-${platform}.tar.gz";
-            # Leave sha256 empty on first run, nix will tell you the correct hash
-            sha256 = "sha256-J1nqEA3kGlKYInA2kva3zVYEys/Xs2jkifzdwbxXKVc=";
-          };
-
-          nativeBuildInputs = [pkgs.autoPatchelfHook];
-          buildInputs = [pkgs.stdenv.cc.cc.lib];
-
-          sourceRoot = ".";
-
-          installPhase = ''
-            mkdir -p $out/bin
-            for bin in nargo noir-profiler noir-inspector; do
-              if [ -f "$bin" ]; then
-                install -D -m755 "$bin" "$out/bin/$bin"
-              fi
-            done
-          '';
-
-          meta = with pkgs.lib; {
-            description = "Noir programming language compiler";
-            homepage = "https://noir-lang.org";
-            platforms = platforms.linux ++ platforms.darwin;
-          };
-        };
 
         bb = let
           bbPlatform =
@@ -108,18 +78,6 @@
             };
           };
 
-        # Create steam-run wrapper for nargo
-        nargo-fhs = pkgs.writeShellScriptBin "nargo" ''
-          exec ${pkgs.steam-run}/bin/steam-run ${nargo}/bin/nargo "$@"
-        '';
-
-        noir-profiler-fhs = pkgs.writeShellScriptBin "noir-profiler" ''
-          exec ${pkgs.steam-run}/bin/steam-run ${nargo}/bin/noir-profiler "$@"
-        '';
-
-        noir-inspector-fhs = pkgs.writeShellScriptBin "noir-inspector" ''
-          exec ${pkgs.steam-run}/bin/steam-run ${nargo}/bin/noir-inspector "$@"
-        '';
         noir-bb = pkgs.writeShellScriptBin "bb" ''
           exec ${pkgs.steam-run}/bin/steam-run ${bb}/bin/bb "$@"
         '';
@@ -130,9 +88,6 @@
               pkg-config
               upkgs.openssl_3_6
               upkgs.git
-              nargo-fhs
-              noir-profiler-fhs
-              noir-inspector-fhs
               noir-bb
             ];
 
@@ -140,6 +95,7 @@
               export OPENSSL_DIR="${upkgs.openssl_3_6.dev}"
               export OPENSSL_LIB_DIR="${upkgs.openssl_3_6.out}/lib"
               export OPENSSL_INCLUDE_DIR="${upkgs.openssl_3_6.dev}/include"
+              export E3_CUSTOM_BB="${noir-bb}"
             '';
           };
         }
