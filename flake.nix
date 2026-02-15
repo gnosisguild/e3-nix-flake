@@ -4,13 +4,14 @@
     nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
+
   outputs = {
     self,
     nixpkgs,
     unstable,
     flake-utils,
   }:
-    flake-utils.lib.eachDefaultSystem (
+    (flake-utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
           inherit system;
@@ -32,7 +33,6 @@
             then "aarch64-apple-darwin"
             else "x86_64-apple-darwin"
           else throw "Unsupported platform";
-
         bb = let
           bbPlatform =
             if pkgs.stdenv.isLinux
@@ -50,34 +50,27 @@
           pkgs.stdenv.mkDerivation rec {
             pname = "barretenberg";
             version = "3.0.0-nightly.20251104";
-
             src = pkgs.fetchurl {
               url = "https://github.com/AztecProtocol/aztec-packages/releases/download/v${version}/barretenberg-${bbPlatform}.tar.gz";
               sha256 = "sha256-l0ABPRqg6xsLstcUhMiz3rxQUKQJvV8S+EVPv8fLVBk=";
             };
-
             nativeBuildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [
               pkgs.autoPatchelfHook
             ];
-
             buildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [
               pkgs.stdenv.cc.cc.lib
             ];
-
             sourceRoot = ".";
-
             installPhase = ''
               mkdir -p $out/bin
               install -D -m755 bb $out/bin/bb
             '';
-
             meta = with pkgs.lib; {
               description = "Barretenberg proving system";
-              homepage = "hin decentralized systems timettps://github.com/AztecProtocol/aztec-packages";
+              homepage = "https://github.com/AztecProtocol/aztec-packages";
               platforms = platforms.linux ++ platforms.darwin;
             };
           };
-
         noir-bb = pkgs.writeShellScriptBin "bb" ''
           exec ${pkgs.steam-run}/bin/steam-run ${bb}/bin/bb "$@"
         '';
@@ -87,11 +80,6 @@
             bb = noir-bb;
           };
 
-          templates.default = {
-            path = ./template;
-            description = "New project using e3 tools";
-          };
-
           devShells.default = mkShell {
             buildInputs = [
               pkg-config
@@ -99,7 +87,6 @@
               upkgs.git
               noir-bb
             ];
-
             shellHook = ''
               export OPENSSL_DIR="${upkgs.openssl_3_6.dev}"
               export OPENSSL_LIB_DIR="${upkgs.openssl_3_6.out}/lib"
@@ -108,5 +95,11 @@
             '';
           };
         }
-    );
+    ))
+    // {
+      templates.default = {
+        path = ./template;
+        description = "New project using e3 tools";
+      };
+    };
 }
