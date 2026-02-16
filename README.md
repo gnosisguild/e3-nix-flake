@@ -63,7 +63,7 @@ Run direnv allow
 direnv allow
 ```
 
-## Updgrading Enclave
+## Upgrading Enclave
 
 To upgrade enclave simply add the new version number to your `./flake.nix`
 
