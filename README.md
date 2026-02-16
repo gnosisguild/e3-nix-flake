@@ -29,7 +29,7 @@ This is currently under construction.
    adduser --disabled-password --gecos "" myuser
 
    # Then login as that user
-   su - myuser
+   sudo -iu myuser
    ```
    
 1. **Direnv**
