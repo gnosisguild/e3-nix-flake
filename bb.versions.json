@@ -1,8 +1,8 @@
 {
   "3.0.0-nightly.20251104": {
-    "amd64-linux": "sha256-9ueIqf5kNZ8y7BRWrHS36vNxIhjL9j+wSOvhHUb5ksg=",
-    "arm64-linux": "sha256-Gucdg8Cpvymyx2lCumQ9zfAePncZc/5uqrkZBnkCW6M=",
-    "amd64-darwin": "sha256-5QsJZYMOxoaYUHE4GYh4jCQu9E6197vAq8VQR3M7gw8=",
-    "arm64-darwin": "sha256-O+5wnC9IDmSKcrdYTQ7z9iuXp40i5T/1W3+SXHjoHHg="
+    "amd64-linux": "sha256-l0ABPRqg6xsLstcUhMiz3rxQUKQJvV8S+EVPv8fLVBk=",
+    "arm64-linux": "sha256-rmv4UYmYUjtOE1zWOPMFqAL1Lo36XqmxwhDefQTFU0M=",
+    "amd64-darwin": "sha256-eHRJTdEjhlWZOkS4XZTp3MNYnSmYDv+LA6fxZ6RcMuQ=",
+    "arm64-darwin": "sha256-bTU8BdvsxXPRsMqZLIsiLbjoc4U7eRC3kpFWKTR/Z4k="
   }
 }

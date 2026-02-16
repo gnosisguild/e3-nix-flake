@@ -15,7 +15,7 @@ hashes="{}"
 for plat in "${PLATFORMS[@]}"; do
   url="${BASE_URL}/barretenberg-${plat}.tar.gz"
   echo "Prefetching ${plat}..."
-  sri=$(nix-prefetch-url --unpack --type sha256 "$url" 2>/dev/null)
+  sri=$(nix-prefetch-url --type sha256 "$url" 2>/dev/null)
   # Convert to SRI hash
   sri_hash=$(nix hash to-sri --type sha256 "$sri")
   hashes=$(echo "$hashes" | jq --arg p "$plat" --arg h "$sri_hash" '. + {($p): $h}')
