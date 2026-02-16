@@ -7,8 +7,8 @@ nix flake init -t github:gnosisguild/e3-nix-flake && direnv allow
 
 Verify installation:
 ```bash
-enclave --version  # 0.1.14
-bb --version       # 3.0.0-nightly.20251104
+enclave --version 
+bb --version
 echo $E3_CUSTOM_BB # /nix/store/.../bb
 ```
 
