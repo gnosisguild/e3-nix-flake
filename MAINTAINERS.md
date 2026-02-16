@@ -14,10 +14,12 @@ This updates:
 - `./versions/enclave.versions.json` — enclave hashes
 - `./versions/bb.versions.json` — barretenberg hashes
 - `./versions/dep.lock.json` — enclave → bb version mapping
+- `./template/flake.nix` — Flake template
 
-### 2. Update template
+### 2. Check the template has updated correctly
 
-Update the version in `./template/flake.nix`:
+`./template/flake.nix`:
+
 ```nix
 e3Pkgs = e3.packages.${system}."<enclave-version>";
 ```
