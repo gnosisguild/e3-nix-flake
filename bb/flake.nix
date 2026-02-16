@@ -71,11 +71,11 @@
       in
         with pkgs; {
           packages = {
-            bb = noir-bb;
+            default = noir-bb;
+            bb = noir-bb; # optional alias
           };
-          devShells.default = mkShell {
+          vShells.default = mkShell {
             buildInputs = [
-              git
               noir-bb
             ];
             shellHook = ''
