@@ -17,7 +17,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       bb = barretenberg.packages.${system}.default;
 
-      platformMap = {
+      enclavePlatformMap = {
         "x86_64-linux" = {
           asset = "enclave-linux-x86_64.tar.gz";
           hash = "sha256-D5jeY8YpuMAU/5iXIruZrmwuKNDBlf3nRH9H4Nr+kd4=";
@@ -31,7 +31,7 @@
       enclaveVersion = "0.1.14";
 
       enclave = let
-        platform = platformMap.${system} or null;
+        platform = enclavePlatformMap.${system} or null;
       in
         if platform == null
         then null
