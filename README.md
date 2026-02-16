@@ -7,13 +7,13 @@ This is currently under construction.
 
 ## Setup enclave on your cloud provider
 
-1. Create a server
+1. **Server**
 
    This has been tested with Ubuntu 22.04 x64, add SSH key and SSH into the droplet as root
 
    NOTE: This will work the best with a fresh install
    
-1. Setup nix:
+1. **Nix**
 
    ```bash
    # Run the following as root
@@ -22,7 +22,7 @@ This is currently under construction.
    
    then exit and ssh back in to load the environment.
 
-1. Setup a user however you normally would and login
+1. **User**
 
    ```bash
    # Add the user
@@ -32,7 +32,7 @@ This is currently under construction.
    su - myuser
    ```
    
-1. Setup direnv for your user:
+1. **Direnv**
 
    ```bash
    # Run the direnv script
@@ -43,7 +43,9 @@ This is currently under construction.
    source ~/.bashrc
    ```
    
-1. Make a project folder then setup your project environment:
+1. **Enclave Project**
+
+   Make a project folder then setup your project environment:
 
    ```bash
    # setup the project folder
@@ -59,16 +61,19 @@ This is currently under construction.
    direnv allow
    ```
 
-3. Ensure the binaries are installed correctly
 
-   ```bash
-   # Check enclave
-   enclave --version
+Thats it.
 
-   # Check bb
-   bb --version
+You can check everything is installed correctly
 
-   # Ensure env vars are exported
-   echo $E3_CUSTOM_BB
-   ```
+```bash
+# Check enclave
+enclave --version
+
+# Check bb
+bb --version
+
+# Ensure env vars are exported
+echo $E3_CUSTOM_BB
+```
 
