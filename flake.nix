@@ -80,6 +80,7 @@
       packages = pkgs.lib.optionalAttrs (enclave != null) {
         enclave = enclave;
         default = enclave;
+        bb = bb;
       };
 
       devShells.default = pkgs.mkShell {
