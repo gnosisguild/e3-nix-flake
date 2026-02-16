@@ -4,6 +4,8 @@
 
 set -euo pipefail
 
+TEMPLATE_FLAKE_FILE="./template/flake.nix"
+README_FILE="./README.md"
 ENCLAVE_VERSION="${1:?Usage: $0 <enclave-version> <bb-version>}"
 BB_VERSION="${2:?Usage: $0 <enclave-version> <bb-version>}"
 
