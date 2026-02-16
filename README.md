@@ -13,7 +13,7 @@ This is currently under construction.
 
    NOTE: This will work the best with a fresh install
    
-1. Run the following:
+1. Setup nix with direnv:
 
    ```
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
