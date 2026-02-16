@@ -73,7 +73,7 @@ Make a project folder then setup your project environment:
 mkdir enclave && cd enclave
 ```
 
-Initialize our git repo - optional but recommended to save your dependency configuration
+Initialize your git repo - optional but recommended to save your dependency configuration as you add other dependencies and tools
 
 ```bash
 git init
