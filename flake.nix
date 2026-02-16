@@ -14,7 +14,7 @@
     ...
   }: let
     enclaveVersions = builtins.fromJSON (builtins.readFile ./versions/enclave.versions.json);
-    depLock = builtins.fromJSON (builtins.readFile ./dep.lock.json);
+    depLock = builtins.fromJSON (builtins.readFile ./versions/dep.lock.json);
   in
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
