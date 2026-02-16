@@ -6,6 +6,14 @@ If you have nix and direnv installed you can install enclave by running the foll
 nix flake init -t github:gnosisguild/e3-nix-flake && direnv allow
 ```
 
+You can check that it has installed correctly:
+
+```bash
+enclave --version
+bb --version
+echo $E3_CUSTOM_BB
+```
+
 ## Setting up Enclave on a Digital Ocean Droplet
 
 ### 1. **Server**
