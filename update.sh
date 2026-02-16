@@ -67,5 +67,13 @@ echo "Updated ${DEP_LOCK_FILE}: enclave ${ENCLAVE_VERSION} -> bb ${BB_VERSION}"
 sed -i.bak 's/\(e3\.packages\.\${system}\.\)"[0-9.]*"/\1"'"${ENCLAVE_VERSION}"'"/' "$TEMPLATE_FLAKE_FILE" && rm -f "${TEMPLATE_FLAKE_FILE}.bak"
 echo "Updated ${TEMPLATE_FLAKE_FILE} with enclave ${ENCLAVE_VERSION}"
 
+# Update README.md with current template
+awk -v template="$(<"$TEMPLATE_FLAKE_FILE")" '
+  /<!-- TEMPLATE_FLAKE_START -->/ { print; print "```nix"; print template; print "```"; skip=1; next }
+  /<!-- TEMPLATE_FLAKE_END -->/ { print; skip=0; next }
+  !skip { print }
+' "$README_FILE" > "${README_FILE}.tmp" && mv "${README_FILE}.tmp" "$README_FILE"
+echo "Updated ${README_FILE} with current template"
+
 echo ""
 echo "Done!"
