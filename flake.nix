@@ -13,7 +13,7 @@
     barretenberg,
     ...
   }: let
-    enclaveVersions = builtins.fromJSON (builtins.readFile ./enclave.versions.json);
+    enclaveVersions = builtins.fromJSON (builtins.readFile ./versions/enclave.versions.json);
     depLock = builtins.fromJSON (builtins.readFile ./dep.lock.json);
   in
     flake-utils.lib.eachDefaultSystem (system: let

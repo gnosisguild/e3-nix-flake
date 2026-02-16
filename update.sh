@@ -7,9 +7,9 @@ set -euo pipefail
 ENCLAVE_VERSION="${1:?Usage: $0 <enclave-version> <bb-version>}"
 BB_VERSION="${2:?Usage: $0 <enclave-version> <bb-version>}"
 
-DEP_LOCK_FILE="dep.lock.json"
-BB_VERSIONS_FILE="bb.versions.json"
-ENCLAVE_VERSIONS_FILE="enclave.versions.json"
+DEP_LOCK_FILE="./versions/dep.lock.json"
+BB_VERSIONS_FILE="./versions/bb.versions.json"
+ENCLAVE_VERSIONS_FILE="./versions/enclave.versions.json"
 
 BB_PLATFORMS=("amd64-linux" "arm64-linux" "amd64-darwin" "arm64-darwin")
 ENCLAVE_PLATFORMS=("linux-x86_64" "macos-aarch64")

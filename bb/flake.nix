@@ -8,7 +8,7 @@
     nixpkgs,
     ...
   }: let
-    versions = builtins.fromJSON (builtins.readFile ../bb.versions.json);
+    versions = builtins.fromJSON (builtins.readFile ../versions/bb.versions.json);
   in {
     lib.mkBB = {
       pkgs,
