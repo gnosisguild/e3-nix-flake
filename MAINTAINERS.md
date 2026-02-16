@@ -3,6 +3,8 @@
 ## Updating the Flake
 
 Prerequisites: `nix`, `jq`
+
+### 1. Update version hashes
 ```bash
 ./update.sh <enclave-version> <bb-version>
 ```
@@ -13,4 +15,20 @@ This updates:
 - `./versions/bb.versions.json` — barretenberg hashes
 - `./versions/dep.lock.json` — enclave → bb version mapping
 
-Commit and push the changes.
+### 2. Update template
+
+Update the version in `./template/flake.nix`:
+```nix
+e3Pkgs = e3.packages.${system}."<enclave-version>";
+```
+
+### 3. Update README
+
+Update version numbers in `README.md` to match.
+
+### 4. Commit and push
+```bash
+git add .
+git commit -m "chore: bump enclave to <enclave-version>, bb to <bb-version>"
+git push
+```
