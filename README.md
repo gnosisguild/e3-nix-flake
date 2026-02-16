@@ -15,31 +15,38 @@ This is currently under construction.
    
 1. **Nix**
 
+   Run the following as **root**
+
    ```bash
-   # Run the following as root
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
    ```
    
-   then exit and ssh back in to load the environment.
-
+   Then exit and ssh back in to load the environment.
+   
 1. **User**
+   
+   Add a user as normal
+   
+   ```bash
+   adduser --disabled-password --gecos "" myuser
+   ```
+   
+   Then login as that user
 
    ```bash
-   # Add the user
-   adduser --disabled-password --gecos "" myuser
-
-   # Then login as that user
    sudo -iu myuser
    ```
    
 1. **Direnv**
-
-   ```bash
-   # Run the direnv script
-   curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
+   Run this direnv script **as your user**
    
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
+   ```
 
-   # Don't forget to source your bashrc!
+   Don't forget to source your bashrc!
+   
+   ```bash
    source ~/.bashrc
    ```
    
@@ -48,19 +55,28 @@ This is currently under construction.
    Make a project folder then setup your project environment:
 
    ```bash
-   # setup the project folder
    mkdir enclave && cd enclave
+   ```
+
+   Initialize our git repo - optional but recommended to save your dependency configuration
    
-   # initialize our git repo
+   ```bash
    git init
+   ```
+   
+   Initialize the folder with our flake template
 
-   # initialize the folder with our flake template
+   ```bash
    nix flake init -t github:gnosisguild/e3-nix-flake
+   ```
+   
+   Run direnv allow
 
-   # run direnv allow
+   ```bash
    direnv allow
    ```
 
+   Now when you return to this folder your dependencies will load automatically.
 
 Thats it.
 
