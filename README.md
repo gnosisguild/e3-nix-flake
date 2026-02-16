@@ -5,7 +5,7 @@ This is currently under construction.
 
 # Enclave Nix Flake
 
-## Setup Enclave on your cloud provider
+## Setup Nix on your cloud provider
 
 
 <details>
