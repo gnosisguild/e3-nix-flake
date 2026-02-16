@@ -6,7 +6,7 @@ if ! command -v nix &> /dev/null; then
 fi
 
 command -v direnv &> /dev/null || nix profile install nixpkgs#direnv
-nix profile list | grep -q nix-direnv || nix profile install nixpkgs#nix-direnv
+nix profile list | grep -q nix-direnv || nix profile add nixpkgs#nix-direnv
 
 grep -qF 'eval "$(direnv hook bash)"' ~/.bashrc 2>/dev/null || \
   echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
