@@ -5,80 +5,77 @@ This is currently under construction.
 
 # Enclave Nix Flake
 
-## Setup enclave on your cloud provider
+## 1. **Server**
 
-1. **Server**
+Get a fresh installation using whatever distribution.
 
-   Get a fresh installation using whatever distribution.
+This has been tested with digital ocean stock ubuntu 24.05.
+
+## 2. **Nix**
+
+Run the following as **root**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
+```
+
+Then exit and ssh back in to load the environment.
    
-   This has been tested with digital ocean stock ubuntu 24.05.
+## 3. **User**
    
-1. **Nix**
+Add a user as normal
 
-   Run the following as **root**
+```bash
+adduser --disabled-password --gecos "" myuser
+```
 
-   ```bash
-   curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
+Then login as that user
+
+```bash
+sudo -iu myuser
+```
+   
+## 4. **Direnv**
+   
+Run this direnv script **as your user**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
+```
+
+Don't forget to source your bashrc!
+
+```bash
+source ~/.bashrc
    ```
    
-   Then exit and ssh back in to load the environment.
-   
-1. **User**
-   
-   Add a user as normal
-   
-   ```bash
-   adduser --disabled-password --gecos "" myuser
-   ```
-   
-   Then login as that user
+## 5. **Enclave Project**
 
-   ```bash
-   sudo -iu myuser
-   ```
-   
-1. **Direnv**
-   Run this direnv script **as your user**
-   
-   ```bash
-   curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
-   ```
+Make a project folder then setup your project environment:
 
-   Don't forget to source your bashrc!
-   
-   ```bash
-   source ~/.bashrc
-   ```
-   
-1. **Enclave Project**
+```bash
+mkdir enclave && cd enclave
+```
 
-   Make a project folder then setup your project environment:
+Initialize our git repo - optional but recommended to save your dependency configuration
 
-   ```bash
-   mkdir enclave && cd enclave
-   ```
+```bash
+git init
+```
 
-   Initialize our git repo - optional but recommended to save your dependency configuration
-   
-   ```bash
-   git init
-   ```
-   
-   Initialize the folder with our flake template
+Initialize the folder with our flake template
 
-   ```bash
-   nix flake init -t github:gnosisguild/e3-nix-flake
-   ```
-   
-   Run direnv allow
+```bash
+nix flake init -t github:gnosisguild/e3-nix-flake
+```
 
-   ```bash
-   direnv allow
-   ```
+Run direnv allow
 
-   Now when you return to this folder your dependencies will load automatically.
+```bash
+direnv allow
+```
 
-Thats it.
+Now when you return to this folder your dependencies will load automatically.
 
 You can check everything is installed correctly
 
