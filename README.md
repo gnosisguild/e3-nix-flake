@@ -92,3 +92,48 @@ direnv allow
 ```
 
 This will install all the prerequisites
+
+
+## Updgrading Enclave
+
+To upgrade enclave simply add the new version number to your `./flake.nix`
+
+```nix
+{
+  description = "New e3 project";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    e3.url = "github:gnosisguild/e3-nix-flake";
+    e3.inputs.nixpkgs.follows = "nixpkgs";
+  };
+  outputs = {
+    self,
+    nixpkgs,
+    flake-utils,
+    e3,
+    ...
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+      e3Pkgs = e3.packages.${system}."0.1.14"; # Update this version here
+    in {
+      devShells.default = pkgs.mkShell {
+        packages = [
+          e3Pkgs.bb
+          e3Pkgs.enclave
+          pkgs.pkg-config
+          pkgs.openssl_3_6
+        ];
+        shellHook = ''
+          export OPENSSL_DIR="${pkgs.openssl_3_6.dev}"
+          export OPENSSL_LIB_DIR="${pkgs.openssl_3_6.out}/lib"
+          export OPENSSL_INCLUDE_DIR="${pkgs.openssl_3_6.dev}/include"
+          export E3_CUSTOM_BB="${e3Pkgs.bb}/bin/bb"
+        '';
+      };
+    });
+}
+```
+
+Once you have updated your nix file either `ctrl+C` to leave your direnv shell or run `direnv allow` to refresh your shells dependencies. Other internal dependencies such as barretenberg will be automatically updated in lockstep.
