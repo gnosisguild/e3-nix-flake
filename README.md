@@ -24,11 +24,11 @@ This is currently under construction.
 1. Setup a user however you normally would
 
    ```
-   adduser --disabled-password --gecos "" enclave
+   adduser --disabled-password --gecos "" myuser
    ```
 
    ```
-   su enclave
+   su - myuser
    ```
    
 1. make a folder then setup your project environment:
