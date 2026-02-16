@@ -15,7 +15,7 @@ This is currently under construction.
 2. Run the following:
 
   ```
- curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+  curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
   ```
 </details>
 
