@@ -15,7 +15,7 @@ This is currently under construction.
    
 1. Setup nix:
 
-   ```
+   ```bash
    # Run the following as root
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
    ```
@@ -24,16 +24,17 @@ This is currently under construction.
 
 1. Setup a user however you normally would and login
 
-   ```
+   ```bash
    # Add the user
    adduser --disabled-password --gecos "" myuser
 
    # Then login as that user
    su - myuser
    ```
+   
 1. Setup direnv for your user:
 
-   ```
+   ```bash
    # Run the direnv script
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
    
@@ -53,27 +54,21 @@ This is currently under construction.
 
    # initialize the folder with our flake template
    nix flake init -t github:gnosisguild/e3-nix-flake
-   ```
 
-2. Run direnv allow
-
-   ```bash
+   # run direnv allow
    direnv allow
    ```
 
 3. Ensure the binaries are installed correctly
 
    ```bash
+   # Check enclave
    enclave --version
-   ```
 
-   ```bash
+   # Check bb
    bb --version
-   ```
 
-   Ensure that the bb override env var is set correctly
-
-   ```bash
+   # Ensure env vars are exported
    echo $E3_CUSTOM_BB
    ```
 
