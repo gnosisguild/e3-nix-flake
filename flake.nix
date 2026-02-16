@@ -14,7 +14,7 @@
     ...
   }: let
     enclaveVersions = builtins.fromJSON (builtins.readFile ./enclave.versions.json);
-    e3Versions = builtins.fromJSON (builtins.readFile ./e3.versions.json);
+    depLock = builtins.fromJSON (builtins.readFile ./dep.lock.json);
   in
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
@@ -71,7 +71,7 @@
             };
           };
       mkE3Shell = {version}: let
-        deps = e3Versions.${version} or (throw "Unknown e3 version ${version}. Available: ${builtins.concatStringsSep ", " (builtins.attrNames e3Versions)}");
+        deps = depLock.${version} or (throw "Unknown e3 version ${version}. Available: ${builtins.concatStringsSep ", " (builtins.attrNames depLock)}");
         bb = barretenberg.lib.mkBB {
           inherit pkgs;
           version = deps.bb;
@@ -109,7 +109,7 @@
         // pkgs.lib.optionalAttrs (enclave != null) {
           inherit enclave;
         })
-      e3Versions;
+      depLock;
 
       devShells.default = mkE3Shell {version = "0.1.14";};
     })
