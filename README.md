@@ -1,71 +1,43 @@
 # Enclave Nix Flake
 
-If you have nix and direnv installed you can install enclave by running the following:
-
+If you have [nix and direnv installed](https://zero-to-nix.com/start/install):
 ```bash
 nix flake init -t github:gnosisguild/e3-nix-flake && direnv allow
 ```
 
-You can check that it has installed correctly:
-
+Verify installation:
 ```bash
-❯ enclave --version
-enclave 0.1.14
-
-❯ bb --version
-3.0.0-nightly.20251104
-
-❯ echo $E3_CUSTOM_BB
-/nix/store/q6ndlkhkf9pzp2rlpfhpz0ghly392ish-bb/bin/bb
+enclave --version  # 0.1.14
+bb --version       # 3.0.0-nightly.20251104
+echo $E3_CUSTOM_BB # /nix/store/.../bb
 ```
 
-## Setting up Enclave on a Digital Ocean Droplet
 
-### 1. **Server**
+## Cloud Setup
 
-Get a fresh installation using whatever distribution.
+Tested with Digital Ocean Ubuntu 24.05.
 
-This has been tested with digital ocean stock ubuntu 24.05.
-
-### 2. **Nix**
-
-Run the following as **root**
+### 1. Install Nix (as root)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
 ```
 
-Then exit and ssh back in to load the environment.
+Exit and SSH back in to load the environment.
    
-### 3. **User**
-   
-Add a user as normal
-
+### 2. Create User
 ```bash
 adduser --disabled-password --gecos "" myuser
-```
-
-Then login as that user
-
-```bash
 sudo -iu myuser
 ```
    
-### 4. **Direnv**
-
-Run this direnv script **as your user**
-
+### 3. Install Direnv (as user)
 ```bash
 curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
-```
-
-Don't forget to source your bashrc!
-
-```bash
 source ~/.bashrc
-   ```
+```
    
-### 5. **Enclave Project**
+### 4. Initialize Project
 
 Make a project folder then setup your project environment:
 
@@ -90,9 +62,6 @@ Run direnv allow
 ```bash
 direnv allow
 ```
-
-This will install all the prerequisites
-
 
 ## Updgrading Enclave
 
@@ -136,4 +105,11 @@ To upgrade enclave simply add the new version number to your `./flake.nix`
 }
 ```
 
-Once you have updated your nix file either `ctrl+C` to leave your direnv shell or run `direnv allow` to refresh your shells dependencies. Other internal dependencies such as barretenberg will be automatically updated in lockstep.
+Then run `direnv allow` to refresh dependencies. Barretenberg updates automatically.
+
+## References
+
+- [Nix](https://nixos.org/) — Package manager
+- [Direnv](https://direnv.net/) — Environment loader
+- [Nix Language Basics](https://nix.dev/tutorials/nix-language) — Learn the Nix expression language
+- [Zero to Nix](https://zero-to-nix.com/) — Getting started guide
