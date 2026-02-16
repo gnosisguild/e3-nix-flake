@@ -13,38 +13,38 @@ This is currently under construction.
 
    NOTE: This will work the best with a fresh install
    
-1. As root setup nix:
+1. Setup nix:
 
    ```
+   # Run the following as root
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
    ```
    
    then exit and ssh back in to load the environment.
 
-1. Setup a user however you normally would
+1. Setup a user however you normally would and login
 
    ```
+   # Add the user
    adduser --disabled-password --gecos "" myuser
-   ```
 
-   ```
+   # Then login as that user
    su - myuser
    ```
 1. Setup direnv for your user:
 
    ```
+   # Run the direnv script
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
-   ```
+   
 
-   Don't forget to source your bashrc!
-
-   ```
+   # Don't forget to source your bashrc!
    source ~/.bashrc
    ```
    
 1. Make a project folder then setup your project environment:
 
-   ```
+   ```bash
    # setup the project folder
    mkdir enclave && cd enclave
    
