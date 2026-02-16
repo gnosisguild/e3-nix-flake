@@ -15,20 +15,22 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      e3Pkgs = e3.packages.${system}."0.1.14";
+      e3p = e3.packages.${system}."0.1.14"; # to upgrade change this version
     in {
       devShells.default = pkgs.mkShell {
-        packages = [
-          e3Pkgs.bb
-          e3Pkgs.enclave
-          pkgs.pkg-config
-          pkgs.openssl_3_6
+        packages = with pkgs; [
+          e3p.bb
+          e3p.enclave
+          pkg-config
+          openssl_3_6
+          # Add any extra packages you need here from nixos.org
+          # neovim git wget curl etc.. 
         ];
         shellHook = ''
           export OPENSSL_DIR="${pkgs.openssl_3_6.dev}"
           export OPENSSL_LIB_DIR="${pkgs.openssl_3_6.out}/lib"
           export OPENSSL_INCLUDE_DIR="${pkgs.openssl_3_6.dev}/include"
-          export E3_CUSTOM_BB="${e3Pkgs.bb}/bin/bb"
+          export E3_CUSTOM_BB="${e3p.bb}/bin/bb"
         '';
       };
     });
