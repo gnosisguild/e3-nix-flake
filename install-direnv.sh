@@ -5,7 +5,7 @@ if ! command -v nix &> /dev/null; then
   . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 fi
 
-command -v direnv &> /dev/null || nix profile install nixpkgs#direnv
+command -v direnv &> /dev/null || nix profile add nixpkgs#direnv
 nix profile list | grep -q nix-direnv || nix profile add nixpkgs#nix-direnv
 
 grep -qF 'eval "$(direnv hook bash)"' ~/.bashrc 2>/dev/null || \
