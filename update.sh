@@ -63,5 +63,9 @@ jq --arg ev "$ENCLAVE_VERSION" --arg bv "$BB_VERSION" '. + {($ev): {bb: $bv}}' "
   > "${DEP_LOCK_FILE}.tmp" && mv "${DEP_LOCK_FILE}.tmp" "$DEP_LOCK_FILE"
 echo "Updated ${DEP_LOCK_FILE}: enclave ${ENCLAVE_VERSION} -> bb ${BB_VERSION}"
 
+# Update template/flake.nix
+sed -i.bak 's/\(e3\.packages\.\${system}\.\)"[0-9.]*"/\1"'"${ENCLAVE_VERSION}"'"/' "$TEMPLATE_FLAKE_FILE" && rm -f "${TEMPLATE_FLAKE_FILE}.bak"
+echo "Updated ${TEMPLATE_FLAKE_FILE} with enclave ${ENCLAVE_VERSION}"
+
 echo ""
 echo "Done!"
