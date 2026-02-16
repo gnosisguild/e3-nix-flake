@@ -1,0 +1,10 @@
+{
+  "0.1.14": {
+    "linux-x86_64": "sha256-o9+OEwKJf/VvpFkM5bIOdIILFbF9vq5Ou6iGOf31BQk=",
+    "macos-aarch64": "sha256-GdOgnUj+MMUn+oWfDhaMviHd9/PGfGm28mOyKVEuPI8="
+  },
+  "0.1.13": {
+    "linux-x86_64": "sha256-mKgIfW1juzyZ3bUTAKLp12YxL1Z+uvFTchG++vOakQU=",
+    "macos-aarch64": "sha256-MF2SwrAZfrwh70dom5OU0yqF6DWAa3lNsKUOusYkSsM="
+  }
+}

@@ -15,7 +15,10 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      bb = barretenberg.packages.${system}.default;
+      bb = barretenberg.lib.mkBB {
+        inherit pkgs;
+        version = "3.0.0-nightly.20251104";
+      };
 
       enclavePlatformMap = {
         "x86_64-linux" = {

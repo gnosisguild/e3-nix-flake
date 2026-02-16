@@ -1,6 +1,9 @@
-# Enclave Nix Flake
 
-_This works but is experimental_
+# NOTE: THIS WILL NOT WORK
+
+This is currently under construction.
+
+# Enclave Nix Flake
 
 ## 1. **Server**
 
