@@ -36,7 +36,7 @@ This is currently under construction.
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
    ```
 
-   then source your bashrc
+   Don't forget to source your bashrc!
 
    ```
    source ~/.bashrc
