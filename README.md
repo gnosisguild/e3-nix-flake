@@ -9,21 +9,17 @@
 <details>
 <summary>Digital Ocean</summary>
 
-1. Create droplet: Ubuntu 22.04 x64, add SSH key
-2. Under Advanced Options → Initialization Scripts, paste:
+1. Create droplet: Ubuntu 22.04 x64, add SSH key and SSH into the droplet
+2. Run the following:
 
-```yaml
-#cloud-config
-runcmd:
-  - curl https://raw.githubusercontent.com/elitak/nixos-infect/master/nixos-infect | PROVIDER=digitalocean NIX_CHANNEL=nixos-24.05 bash 2>&1 | tee /tmp/infect.log
-```
-
-3. Create. Wait ~4 min. SSH in.
+  ```
+ curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+  ```
 </details>
 
 ## Setup the binaries
 
-1. Clone the template repo:
+1. make a folder then setup your project environment:
 
 ```
 nix flake init -t github:gnosisguild/e3-nix-flake
