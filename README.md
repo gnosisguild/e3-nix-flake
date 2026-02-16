@@ -9,9 +9,14 @@ nix flake init -t github:gnosisguild/e3-nix-flake && direnv allow
 You can check that it has installed correctly:
 
 ```bash
-enclave --version
-bb --version
-echo $E3_CUSTOM_BB
+❯ enclave --version
+enclave 0.1.14
+
+❯ bb --version
+3.0.0-nightly.20251104
+
+❯ echo $E3_CUSTOM_BB
+/nix/store/q6ndlkhkf9pzp2rlpfhpz0ghly392ish-bb/bin/bb
 ```
 
 ## Setting up Enclave on a Digital Ocean Droplet
