@@ -24,6 +24,10 @@ This is currently under construction.
 1. make a folder then setup your project environment:
 
 ```
+mkdir enclave && cd enclave
+```
+
+```
 nix flake init -t github:gnosisguild/e3-nix-flake
 ```
 
