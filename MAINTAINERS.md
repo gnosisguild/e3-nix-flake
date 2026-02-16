@@ -2,7 +2,7 @@
 
 ## Updating the Flake
 
-Prerequisites: `nix`, `jq`
+Prerequisites: `nix`, `jq`, `sed`, `awk`
 
 ### Run the update script
 ```bash
