@@ -42,10 +42,10 @@ This is currently under construction.
    source ~/.bashrc
    ```
    
-1. make a folder then setup your project environment:
+1. Make a project folder then setup your project environment:
 
    ```
-   mkdir enclave && cd enclave
+   mkdir enclave && cd enclave && git init
    ```
 
    ```
