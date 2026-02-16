@@ -36,7 +36,7 @@ sudo -iu myuser
 ```
    
 ## 4. **Direnv**
-   
+
 Run this direnv script **as your user**
 
 ```bash
