@@ -30,6 +30,11 @@ This is currently under construction.
    ```
    su - myuser
    ```
+1. Setup direnv for your user:
+
+   ```
+   curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
+   ```
    
 1. make a folder then setup your project environment:
 
