@@ -45,10 +45,13 @@ This is currently under construction.
 1. Make a project folder then setup your project environment:
 
    ```
-   mkdir enclave && cd enclave && git init
-   ```
+   # setup the project folder
+   mkdir enclave && cd enclave
+   
+   # initialize our git repo
+   git init
 
-   ```
+   # initialize the folder with our flake template
    nix flake init -t github:gnosisguild/e3-nix-flake
    ```
 
