@@ -6,15 +6,15 @@ If you have nix and direnv installed you can install enclave by running the foll
 nix flake init -t github:gnosisguild/e3-nix-flake && direnv allow
 ```
 
-# Setting up Enclave on a Digital Ocean Droplet
+## Setting up Enclave on a Digital Ocean Droplet
 
-## 1. **Server**
+### 1. **Server**
 
 Get a fresh installation using whatever distribution.
 
 This has been tested with digital ocean stock ubuntu 24.05.
 
-## 2. **Nix**
+### 2. **Nix**
 
 Run the following as **root**
 
@@ -24,7 +24,7 @@ curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads
 
 Then exit and ssh back in to load the environment.
    
-## 3. **User**
+### 3. **User**
    
 Add a user as normal
 
@@ -38,7 +38,7 @@ Then login as that user
 sudo -iu myuser
 ```
    
-## 4. **Direnv**
+### 4. **Direnv**
 
 Run this direnv script **as your user**
 
@@ -52,7 +52,7 @@ Don't forget to source your bashrc!
 source ~/.bashrc
    ```
    
-## 5. **Enclave Project**
+### 5. **Enclave Project**
 
 Make a project folder then setup your project environment:
 
