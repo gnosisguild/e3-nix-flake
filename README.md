@@ -5,21 +5,16 @@ This is currently under construction.
 
 # Enclave Nix Flake
 
-## Setup Nix on your cloud provider
+## Setup enclave on your cloud provider
 
-
-<details>
-<summary>Digital Ocean</summary>
-
-1. Create droplet: Ubuntu 22.04 x64, add SSH key and SSH into the droplet
-2. Run the following:
+1. Create a server
+   This has been tested with Ubuntu 22.04 x64, add SSH key and SSH into the droplet
+   
+1. Run the following:
 
   ```
   curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
   ```
-</details>
-
-## Setup the binaries
 
 1. make a folder then setup your project environment:
 
