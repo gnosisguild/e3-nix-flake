@@ -35,6 +35,12 @@ This is currently under construction.
    ```
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-direnv.sh | bash
    ```
+
+   then source your bashrc
+
+   ```
+   source ~/.bashrc
+   ```
    
 1. make a folder then setup your project environment:
 
