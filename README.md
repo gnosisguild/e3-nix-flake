@@ -18,7 +18,9 @@ This is currently under construction.
    ```
    curl -fsSL https://raw.githubusercontent.com/gnosisguild/e3-nix-flake/refs/heads/master/install-nix.sh | bash
    ```
-
+   
+   then exit and ssh back in to load the environment.
+   
 1. make a folder then setup your project environment:
 
    ```
