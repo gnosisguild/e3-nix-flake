@@ -15,23 +15,20 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      bb = e3.packages.${system}.bb;
-      enclave = e3.packages.${system}.enclave;
+      e3Pkgs = e3.packages.${system}."0.1.14";
     in {
       devShells.default = pkgs.mkShell {
         packages = [
-          bb
-          enclave
+          e3Pkgs.bb
+          e3Pkgs.enclave
           pkgs.pkg-config
           pkgs.openssl_3_6
-          # add any other packages you need here and nix will install them
-          # eg. git
         ];
         shellHook = ''
           export OPENSSL_DIR="${pkgs.openssl_3_6.dev}"
           export OPENSSL_LIB_DIR="${pkgs.openssl_3_6.out}/lib"
           export OPENSSL_INCLUDE_DIR="${pkgs.openssl_3_6.dev}/include"
-          export E3_CUSTOM_BB="${bb}/bin/bb"
+          export E3_CUSTOM_BB="${e3Pkgs.bb}/bin/bb"
         '';
       };
     });

@@ -12,96 +12,106 @@
     flake-utils,
     barretenberg,
     ...
-  }:
+  }: let
+    enclaveVersions = builtins.fromJSON (builtins.readFile ./enclave.versions.json);
+    e3Versions = builtins.fromJSON (builtins.readFile ./e3.versions.json);
+  in
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      bb = barretenberg.lib.mkBB {
-        inherit pkgs;
-        version = "3.0.0-nightly.20251104";
-      };
 
-      enclavePlatformMap = {
-        "x86_64-linux" = {
-          asset = "enclave-linux-x86_64.tar.gz";
-          hash = "sha256-D5jeY8YpuMAU/5iXIruZrmwuKNDBlf3nRH9H4Nr+kd4=";
-        };
-        "aarch64-darwin" = {
-          asset = "enclave-macos-aarch64.tar.gz";
-          hash = "sha256-XTU59pAk8GTEP86G7O0p8vLScVAnp6ruKV/CsUhm2rM=";
-        };
-      };
-
-      enclaveVersion = "0.1.14";
-
-      enclave = let
-        platform = enclavePlatformMap.${system} or null;
+      mkEnclave = {version}: let
+        hashes = enclaveVersions.${version} or (throw "Unknown enclave version ${version}. Available: ${builtins.concatStringsSep ", " (builtins.attrNames enclaveVersions)}");
+        platformName =
+          {
+            "x86_64-linux" = "linux-x86_64";
+            "aarch64-linux" = "linux-aarch64";
+            "x86_64-darwin" = "macos-x86_64";
+            "aarch64-darwin" = "macos-aarch64";
+          }.${
+            system
+          } or null;
+        hash =
+          if platformName != null
+          then hashes.${platformName} or null
+          else null;
       in
-        if platform == null
+        if hash == null
         then null
         else
           pkgs.stdenv.mkDerivation {
             pname = "enclave";
-            version = enclaveVersion;
-
+            inherit version;
             src = pkgs.fetchurl {
-              url = "https://github.com/gnosisguild/enclave/releases/download/v${enclaveVersion}/${platform.asset}";
-              hash = platform.hash;
+              url = "https://github.com/gnosisguild/enclave/releases/download/v${version}/enclave-${platformName}.tar.gz";
+              inherit hash;
             };
-
             sourceRoot = ".";
-
             nativeBuildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [
               pkgs.autoPatchelfHook
             ];
-
             buildInputs = pkgs.lib.optionals pkgs.stdenv.isLinux [
               pkgs.stdenv.cc.cc.lib
               pkgs.openssl
             ];
-
             unpackPhase = ''
               tar xzf $src
             '';
-
             installPhase = ''
               mkdir -p $out/bin
               find . -name "enclave" -type f -executable | head -1 | xargs -I{} cp {} $out/bin/enclave \
                 || cp enclave $out/bin/enclave
               chmod +x $out/bin/enclave
             '';
-
             dontBuild = true;
             dontConfigure = true;
-
             meta = with pkgs.lib; {
               description = "Enclave CLI - encrypted execution environments";
               homepage = "https://github.com/gnosisguild/enclave";
               license = licenses.mit;
             };
           };
+      mkE3Shell = {version}: let
+        deps = e3Versions.${version} or (throw "Unknown e3 version ${version}. Available: ${builtins.concatStringsSep ", " (builtins.attrNames e3Versions)}");
+        bb = barretenberg.lib.mkBB {
+          inherit pkgs;
+          version = deps.bb;
+        };
+        enclave = mkEnclave {inherit version;};
+      in
+        pkgs.mkShell {
+          packages =
+            [
+              bb
+              pkgs.pkg-config
+              pkgs.openssl_3_6
+            ]
+            ++ pkgs.lib.optionals (enclave != null) [enclave];
+          shellHook = ''
+            export OPENSSL_DIR="${pkgs.openssl_3_6.dev}"
+            export OPENSSL_LIB_DIR="${pkgs.openssl_3_6.out}/lib"
+            export OPENSSL_INCLUDE_DIR="${pkgs.openssl_3_6.dev}/include"
+            export E3_CUSTOM_BB="${bb}/bin/bb"
+          '';
+        };
     in {
-      packages = pkgs.lib.optionalAttrs (enclave != null) {
-        enclave = enclave;
-        default = enclave;
-        bb = bb;
-      };
+      lib = {inherit mkEnclave mkE3Shell;};
 
-      devShells.default = pkgs.mkShell {
-        packages =
-          [
-            bb
-            pkgs.pkg-config
-            pkgs.openssl_3_6
-          ]
-          ++ pkgs.lib.optionals (enclave != null) [enclave];
+      packages = builtins.mapAttrs (version: deps: let
+        bb = barretenberg.lib.mkBB {
+          inherit pkgs;
+          version = deps.bb;
+        };
+        enclave = mkEnclave {version = version;};
+      in
+        {
+          inherit bb;
+        }
+        // pkgs.lib.optionalAttrs (enclave != null) {
+          inherit enclave;
+        })
+      e3Versions;
 
-        shellHook = ''
-          export OPENSSL_DIR="${pkgs.openssl_3_6.dev}"
-          export OPENSSL_LIB_DIR="${pkgs.openssl_3_6.out}/lib"
-          export OPENSSL_INCLUDE_DIR="${pkgs.openssl_3_6.dev}/include"
-          export E3_CUSTOM_BB="${bb}/bin/bb"
-        '';
-      };
+      devShells.default = mkE3Shell {version = "0.1.14";};
     })
     // {
       templates.default = {
