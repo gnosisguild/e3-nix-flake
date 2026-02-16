@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Install Determinate Nix (installer handles already-installed case)
 if ! command -v nix &> /dev/null; then
-  curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+  curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm
 fi
 
 # Source nix in current shell if not already available
