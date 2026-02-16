@@ -79,7 +79,7 @@ Initialize your git repo - optional but recommended to save your dependency conf
 git init
 ```
 
-Initialize the folder with our flake template
+Initialize the folder with a basic `./flake.nix` demonstrating how to use enclave.
 
 ```bash
 nix flake init -t github:gnosisguild/e3-nix-flake
