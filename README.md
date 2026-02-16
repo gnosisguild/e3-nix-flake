@@ -9,9 +9,9 @@ This is currently under construction.
 
 1. **Server**
 
-   This has been tested with Ubuntu 22.04 x64, add SSH key and SSH into the droplet as root
-
-   NOTE: This will work the best with a fresh install
+   Get a fresh installation using whatever distribution.
+   
+   This has been tested with digital ocean stock ubuntu 24.05.
    
 1. **Nix**
 
