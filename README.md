@@ -1,5 +1,7 @@
 
-# NOTE: THIS MAY NOT WORK
+# NOTE: THIS WILL NOT WORK
+
+This is currently under construction.
 
 # Enclave Nix Flake
 
