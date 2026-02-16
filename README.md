@@ -91,20 +91,4 @@ Run direnv allow
 direnv allow
 ```
 
-This might take a little time.
-
-Now when you return to this folder your dependencies will load automatically.
-
-You can check everything is installed correctly
-
-```bash
-# Check enclave
-enclave --version
-
-# Check bb
-bb --version
-
-# Ensure env vars are exported
-echo $E3_CUSTOM_BB
-```
-
+This will install all the prerequisites
