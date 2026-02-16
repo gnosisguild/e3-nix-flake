@@ -75,6 +75,8 @@ Run direnv allow
 direnv allow
 ```
 
+This might take a little time.
+
 Now when you return to this folder your dependencies will load automatically.
 
 You can check everything is installed correctly
