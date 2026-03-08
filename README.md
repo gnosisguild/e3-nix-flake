@@ -1,3 +1,5 @@
+_UPDATE this will likely be supereeded by this https://github.com/gnosisguild/enclave/pull/1383_
+
 # Enclave Nix Flake
 
 If you have [nix and direnv installed](https://zero-to-nix.com/start/install):
